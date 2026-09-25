@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogHub - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<nav class="bg-blue-600 text-white p-4">
+    <div class="max-w-6xl mx-auto flex justify-between">
+        <h1 class="text-2xl font-bold">BlogHub</h1>
+        <a href="index.html" class="hover:text-gray-200">Home</a>
+    </div>
+</nav>
+
+<div class="min-h-screen flex items-center justify-center px-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+
+        <h2 class="text-3xl font-bold text-center mb-6">Login</h2>
+
+        <form onsubmit="loginUser(event)">
+
+            <label class="block mb-2 font-semibold">Email</label>
+            <input
+                type="email"
+                id="email"
+                required
+                class="w-full border rounded-lg p-3 mb-4 focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your email">
+
+            <label class="block mb-2 font-semibold">Password</label>
+            <input
+                type="password"
+                id="password"
+                required
+                class="w-full border rounded-lg p-3 mb-5 focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your password">
+
+            <button
+                type="submit"
+                class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+                Login
+            </button>
+
+        </form>
+
+        <p class="text-center mt-5">
+            Don't have an account?
+            <a href="register.html" class="text-blue-600 font-semibold">
+                Register
+            </a>
+        </p>
+
+    </div>
+</div>
+
+<script>
+function loginUser(event) {
+    event.preventDefault();
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if (email && password) {
+        alert("Login successful!");
+        window.location.href = "dashboard.html";
+    }
+}
+</script>
+
+</body>
+</html>

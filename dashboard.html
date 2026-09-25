@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogHub - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<nav class="bg-blue-600 text-white p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">BlogHub</h1>
+
+        <div class="space-x-4">
+            <a href="index.html">Home</a>
+            <a href="create-blog.html">Create Blog</a>
+        </div>
+    </div>
+</nav>
+
+<div class="max-w-6xl mx-auto px-4 py-10">
+
+    <div class="bg-white p-6 rounded-xl shadow mb-8">
+        <h2 class="text-3xl font-bold mb-2">Welcome to Dashboard</h2>
+        <p class="text-gray-600">
+            Manage your blogs and create new posts.
+        </p>
+
+        <a href="create-blog.html"
+           class="inline-block mt-4 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700">
+            + Create New Blog
+        </a>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-5">My Blogs</h2>
+
+    <div id="blogContainer"
+         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-bold mb-2">My First Blog</h3>
+            <p class="text-gray-600 mb-4">
+                This is an example blog post created by the user.
+            </p>
+
+            <button
+                onclick="deleteBlog(this)"
+                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                Delete
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function deleteBlog(button) {
+    if (confirm("Are you sure you want to delete this blog?")) {
+        button.parentElement.remove();
+    }
+}
+</script>
+
+</body>
+</html>

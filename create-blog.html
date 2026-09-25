@@ -1,106 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlogHub - Create Blog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlogHub — Create Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body class="bg-gray-100">
+<header class="mast">
+  <div class="wrap">
+    <a href="index.html" class="brand">Blog<em>Hub</em></a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
 
-<nav class="bg-blue-600 text-white p-4">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">BlogHub</h1>
+<main class="wrap view">
+  <div style="max-width:560px;margin:0 auto">
+    <h2 style="font-size:2.1rem;margin-bottom:8px">Write a new post</h2>
+    <p style="color:var(--ink-soft);margin:0 0 34px">Say something worth reading. You can edit later from your dashboard.</p>
+    <form id="blogForm">
+      <div class="field"><label for="cb-title">Title</label><input type="text" id="cb-title" required placeholder="A title readers will remember"></div>
+      <div class="field"><label for="cb-cat">Category</label>
+        <select id="cb-cat">
+          <option>Technology</option><option>Education</option><option>Travel</option><option>Lifestyle</option><option>Other</option>
+        </select>
+      </div>
+      <div class="field"><label for="cb-content">Content</label><textarea id="cb-content" required placeholder="Start writing..."></textarea></div>
+      <button type="submit" class="btn" style="width:100%">Publish post</button>
+    </form>
+  </div>
+</main>
 
-        <div class="space-x-4">
-            <a href="index.html">Home</a>
-            <a href="dashboard.html">Dashboard</a>
-        </div>
-    </div>
-</nav>
+<footer class="wrap"><span>© 2026 BlogHub. All rights reserved.</span><span>Created by Mohd Muttasif</span></footer>
 
-<div class="max-w-3xl mx-auto px-4 py-10">
-
-    <div class="bg-white p-8 rounded-xl shadow">
-
-        <h2 class="text-3xl font-bold mb-6 text-center">
-            Create New Blog
-        </h2>
-
-        <form onsubmit="createBlog(event)">
-
-            <label class="block font-semibold mb-2">
-                Blog Title
-            </label>
-
-            <input
-                type="text"
-                id="title"
-                required
-                class="w-full border rounded-lg p-3 mb-5 focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter blog title">
-
-            <label class="block font-semibold mb-2">
-                Category
-            </label>
-
-            <select
-                id="category"
-                class="w-full border rounded-lg p-3 mb-5">
-
-                <option>Technology</option>
-                <option>Education</option>
-                <option>Travel</option>
-                <option>Lifestyle</option>
-                <option>Other</option>
-
-            </select>
-
-            <label class="block font-semibold mb-2">
-                Blog Content
-            </label>
-
-            <textarea
-                id="content"
-                required
-                rows="8"
-                class="w-full border rounded-lg p-3 mb-5 focus:ring-2 focus:ring-blue-500"
-                placeholder="Write your blog here..."></textarea>
-
-            <button
-                type="submit"
-                class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-                Publish Blog
-            </button>
-
-        </form>
-
-    </div>
-
-</div>
-
+<script src="app.js"></script>
 <script>
-function createBlog(event) {
-
-    event.preventDefault();
-
-    let title = document.getElementById("title").value;
-    let category = document.getElementById("category").value;
-    let content = document.getElementById("content").value;
-
-    if (title && content) {
-
-        localStorage.setItem("blogTitle", title);
-        localStorage.setItem("blogCategory", category);
-        localStorage.setItem("blogContent", content);
-
-        alert("Blog published successfully!");
-
-        window.location.href = "dashboard.html";
-    }
-}
+document.getElementById('blogForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const title = document.getElementById('cb-title').value.trim();
+  const category = document.getElementById('cb-cat').value;
+  const content = document.getElementById('cb-content').value.trim();
+  if(!title||!content) return;
+  const posts = loadPosts();
+  posts.unshift({id:'p'+Date.now(), title, category, content});
+  savePosts(posts);
+  alert('Blog published successfully!');
+  window.location.href = 'dashboard.html';
+});
 </script>
-
 </body>
 </html>

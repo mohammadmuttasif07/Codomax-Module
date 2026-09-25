@@ -1,68 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlogHub - Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlogHub — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body class="bg-gray-100">
+<header class="mast">
+  <div class="wrap">
+    <a href="index.html" class="brand">Blog<em>Hub</em></a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+    </nav>
+  </div>
+</header>
 
-<nav class="bg-blue-600 text-white p-4">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">BlogHub</h1>
-
-        <div class="space-x-4">
-            <a href="index.html">Home</a>
-            <a href="create-blog.html">Create Blog</a>
-        </div>
+<main class="wrap view">
+  <div class="hero" style="align-items:center">
+    <div>
+      <h1 style="font-size:2.4rem">Your dashboard</h1>
+      <p class="lede">Manage what you've published and pick up drafts.</p>
     </div>
-</nav>
+    <div style="text-align:right"><a href="create-blog.html" class="btn">+ New post</a></div>
+  </div>
+  <div class="section-head"><h2>My posts</h2><span class="pill" id="dashCountPill">0 posts</span></div>
+  <div id="dashFeed" class="grid"></div>
+</main>
 
-<div class="max-w-6xl mx-auto px-4 py-10">
+<footer class="wrap"><span>© 2026 BlogHub. All rights reserved.</span><span>Created by Mohd Muttasif</span></footer>
+<div class="toast" id="toast"></div>
 
-    <div class="bg-white p-6 rounded-xl shadow mb-8">
-        <h2 class="text-3xl font-bold mb-2">Welcome to Dashboard</h2>
-        <p class="text-gray-600">
-            Manage your blogs and create new posts.
-        </p>
-
-        <a href="create-blog.html"
-           class="inline-block mt-4 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700">
-            + Create New Blog
-        </a>
-    </div>
-
-    <h2 class="text-2xl font-bold mb-5">My Blogs</h2>
-
-    <div id="blogContainer"
-         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-xl font-bold mb-2">My First Blog</h3>
-            <p class="text-gray-600 mb-4">
-                This is an example blog post created by the user.
-            </p>
-
-            <button
-                onclick="deleteBlog(this)"
-                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                Delete
-            </button>
-        </div>
-
-    </div>
-
-</div>
-
+<script src="app.js"></script>
 <script>
-function deleteBlog(button) {
-    if (confirm("Are you sure you want to delete this blog?")) {
-        button.parentElement.remove();
-    }
+let posts = loadPosts();
+function render(){
+  document.getElementById('dashCountPill').textContent = posts.length + (posts.length===1?' post':' posts');
+  const dash = document.getElementById('dashFeed');
+  dash.innerHTML = posts.length
+    ? posts.map(p=>renderCard(p,true)).join('')
+    : '<p class="empty">Nothing here yet. <a href="create-blog.html" style="color:var(--brick)">Write your first post →</a></p>';
+  wireDelete(dash, posts, updated=>{ posts = updated; render(); showToast('Post deleted'); });
 }
+render();
 </script>
-
 </body>
 </html>

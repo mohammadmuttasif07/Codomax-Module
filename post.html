@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlogHub — Post</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <a href="index.html" class="brand">Blog<em>Hub</em></a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap view">
+  <div style="max-width:640px;margin:0 auto">
+    <a href="index.html" class="switch" style="display:inline-block;margin-bottom:28px">← Back to all posts</a>
+    <div class="cat" id="postCat" style="margin-bottom:10px"></div>
+    <h1 id="postTitle" style="font-size:clamp(2rem,4.5vw,2.9rem);line-height:1.1;margin-bottom:22px"></h1>
+    <div id="postBody" style="font-size:1.08rem;line-height:1.75;color:var(--ink-soft);white-space:pre-wrap"></div>
+    <div id="postActions" style="margin-top:40px;padding-top:24px;border-top:1px solid var(--line)"></div>
+  </div>
+</main>
+
+<footer class="wrap"><span>© 2026 BlogHub. All rights reserved.</span><span>Created by Mohd Muttasif</span></footer>
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get('id');
+let posts = loadPosts();
+const p = posts.find(x=>x.id===id) || posts[0];
+if(p){
+  document.getElementById('postCat').textContent = p.category;
+  document.getElementById('postTitle').textContent = p.title;
+  document.getElementById('postBody').textContent = p.content;
+  document.getElementById('postActions').innerHTML = `<button class="btn danger" data-del="${p.id}">Delete this post</button>`;
+  wireDelete(document.getElementById('postActions'), posts, updated=>{
+    showToast('Post deleted');
+    setTimeout(()=>window.location.href='dashboard.html', 500);
+  });
+} else {
+  document.querySelector('main .wrap').innerHTML = '<p class="empty">Post not found.</p>';
+}
+</script>
+</body>
+</html>

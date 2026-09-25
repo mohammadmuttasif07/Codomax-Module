@@ -1,82 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlogHub - Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlogHub — write in the open</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body class="bg-gray-100 text-gray-800">
+<header class="mast">
+  <div class="wrap">
+    <a href="index.html" class="brand">Blog<em>Hub</em></a>
+    <nav class="links">
+      <a href="index.html" class="active">Home</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
 
-<!-- Navbar -->
-<nav class="bg-blue-600 text-white p-4">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">BlogHub</h1>
-
-        <div class="space-x-4 hidden md:block">
-            <a href="index.html" class="hover:text-gray-200">Home</a>
-            <a href="login.html" class="hover:text-gray-200">Login</a>
-            <a href="register.html" class="hover:text-gray-200">Register</a>
-            <a href="dashboard.html" class="hover:text-gray-200">Dashboard</a>
-        </div>
+<main class="wrap view">
+  <div class="hero">
+    <div>
+      <h1>Write in the<br>open.</h1>
+      <p class="lede">BlogHub is a plain, honest place to put your thinking down and share it — no algorithms deciding who sees it first.</p>
+      <div style="margin-top:28px;display:flex;gap:14px">
+        <a href="create-blog.html" class="btn">Start writing</a>
+        <a href="dashboard.html" class="btn ghost">See my posts</a>
+      </div>
     </div>
-</nav>
+    <div class="num"><b id="homeCount">0</b><span>posts published on this device</span></div>
+  </div>
 
-<!-- Hero -->
-<section class="bg-blue-500 text-white text-center py-16 px-4">
-    <h2 class="text-4xl font-bold mb-4">Welcome to BlogHub</h2>
-    <p class="text-lg mb-6">
-        Read, create and share amazing blogs with everyone.
-    </p>
+  <div class="section-head"><h2>Latest posts</h2><span class="pill">community feed</span></div>
+  <div id="homeFeed" class="grid"></div>
+</main>
 
-    <a href="create-blog.html"
-       class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
-        Create Blog
-    </a>
-</section>
+<footer class="wrap"><span>© 2026 BlogHub. All rights reserved.</span><span>Created by Mohd Muttasif</span></footer>
 
-<!-- Blogs -->
-<section class="max-w-6xl mx-auto py-10 px-4">
-    <h2 class="text-3xl font-bold text-center mb-8">Latest Blogs</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-xl font-bold mb-2">Web Development</h3>
-            <p class="text-gray-600 mb-4">
-                Learn the basics of modern web development using HTML,
-                CSS and JavaScript.
-            </p>
-            <button class="text-blue-600 font-semibold">Read More →</button>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-xl font-bold mb-2">Artificial Intelligence</h3>
-            <p class="text-gray-600 mb-4">
-                Discover how artificial intelligence is changing the world
-                of technology.
-            </p>
-            <button class="text-blue-600 font-semibold">Read More →</button>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-xl font-bold mb-2">Student Life</h3>
-            <p class="text-gray-600 mb-4">
-                Useful tips and ideas to improve your college and student life.
-            </p>
-            <button class="text-blue-600 font-semibold">Read More →</button>
-        </div>
-
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-gray-800 text-white text-center p-5 mt-10">
-    <p>© 2026 BlogHub. All Rights Reserved.</p>
-    <p class="mt-2">Created by <strong>Mohd Muttasif</strong></p>
-</footer>
-
-
+<script src="app.js"></script>
+<script>
+const posts = loadPosts();
+document.getElementById('homeCount').textContent = posts.length;
+document.getElementById('homeFeed').innerHTML = posts.length
+  ? posts.map(p=>renderCard(p,false)).join('')
+  : '<p class="empty">No posts yet — be the first to write one.</p>';
+</script>
 </body>
 </html>
